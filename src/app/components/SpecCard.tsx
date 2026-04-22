@@ -5,9 +5,10 @@ interface SpecProps {
   ram: string;
   storage: string;
   price: string;
+  affiliateLink: string; // เพิ่มตัวนี้เข้ามา
 }
 
-export default function SpecCard({ title, cpu, gpu, ram, storage, price }: SpecProps) {
+export default function SpecCard({ title, cpu, gpu, ram, storage, price, affiliateLink }: SpecProps) {
   return (
     <div className="border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow bg-slate-50 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
@@ -19,10 +20,16 @@ export default function SpecCard({ title, cpu, gpu, ram, storage, price }: SpecP
         <li><strong className="text-slate-900">Storage:</strong> {storage}</li>
       </ul>
       <div className="text-xl font-extrabold text-red-600 mb-5">{price}</div>
-      {/* ปุ่มกดไปรับเงินค่าคอมมิชชันของเรา */}
-      <button className="bg-orange-500 hover:bg-orange-600 transition-colors text-white font-bold py-2 px-4 rounded-lg w-full shadow-md text-sm">
+      
+      {/* เปลี่ยนจาก <button> เป็น <a> เพื่อให้ใส่ลิงก์ Affiliate ได้ */}
+      <a 
+        href={affiliateLink} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block text-center bg-orange-500 hover:bg-orange-600 transition-colors text-white font-bold py-2 px-4 rounded-lg w-full shadow-md text-sm"
+      >
         🛒 ดูเซ็ตนี้ใน Shopee/Lazada [Affiliate]
-      </button>
+      </a>
     </div>
   );
 }

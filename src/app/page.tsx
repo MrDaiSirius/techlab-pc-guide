@@ -1,28 +1,8 @@
 import SpecCard from "./components/SpecCard";
 import Link from "next/link";
+import { pcSpecs } from "@/data/specs"; // Import ข้อมูลจากไฟล์ data
 
 export default function Home() {
-  const pcSpecs = [
-    {
-      id: 1,
-      title: "💻 สเปกสาย Dev & Docker รันลื่นปื๊ด",
-      cpu: "Intel Core i7-14700K",
-      gpu: "RTX 4060 Ti 8GB",
-      ram: "32GB DDR5 6000MHz",
-      storage: "1TB M.2 PCIe 4.0",
-      price: "ประมาณ 45,000 บาท",
-    },
-    {
-      id: 2,
-      title: "🏴‍☠️ สเปก Hacker สายเจาะระบบ (รัน VM กระจุย)",
-      cpu: "AMD Ryzen 9 7900X",
-      gpu: "RX 7800 XT 16GB",
-      ram: "64GB DDR5 5200MHz",
-      storage: "2TB M.2 PCIe 4.0",
-      price: "ประมาณ 60,000 บาท",
-    }
-  ];
-
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center pb-10">
       <header className="w-full bg-slate-900 text-white p-8 text-center shadow-lg">
@@ -35,8 +15,6 @@ export default function Home() {
       </div>
 
       <div className="w-full max-w-4xl p-8 bg-white shadow-xl rounded-xl border border-gray-100">
-        
-        {/* กูใส่ปุ่ม Link ไปหน้า Guide ตรงนี้ */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 border-b pb-4 gap-4">
           <h2 className="text-3xl font-bold text-gray-800">🔥 สเปกคอมแนะนำประจำเดือน</h2>
           <Link href="/guide" className="bg-blue-600 hover:bg-blue-700 transition-colors text-white font-bold py-2 px-6 rounded-lg shadow-md animate-pulse">
@@ -54,6 +32,7 @@ export default function Home() {
               ram={spec.ram}
               storage={spec.storage}
               price={spec.price}
+              affiliateLink={spec.affiliateLink} // ส่งลิงก์เข้าไปด้วย
             />
           ))}
         </div>
