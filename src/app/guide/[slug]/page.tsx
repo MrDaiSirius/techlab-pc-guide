@@ -1,14 +1,29 @@
 import { articles } from "@/data/articles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+// ฟังก์ชันเทพของ Next.js สำหรับสร้าง SEO Title และ Description อัตโนมัติ
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
+
+  if (!article) {
+    return {
+      title: "ไม่พบบทความ | TechLab",
+    };
+  }
+
+  return {
+    title: `${article.title} | TechLab PC Guide`,
+    description: article.excerpt,
+  };
+}
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
-  // ค้นหาบทความที่ตรงกับ slug ใน URL
   const article = articles.find((a) => a.slug === slug);
 
-  // ถ้าหาไม่เจอ ให้โยนไปหน้า 404
   if (!article) {
     notFound();
   }
@@ -27,10 +42,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {article.content}
         </p>
 
-        {/* ช่องทางทำมาหากิน ห้ามลืม! */}
         <div className="bg-blue-50 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg shadow-sm">
           <p className="font-bold text-blue-900 mb-2">🔥 ข้อเสนอพิเศษสำหรับมึง:</p>
-          <a href={article.affiliateLink} className="text-xl underline text-blue-600 hover:text-blue-800 font-extrabold">
+          <a href={article.affiliateLink} target="_blank" rel="noopener noreferrer" className="text-xl underline text-blue-600 hover:text-blue-800 font-extrabold">
             {article.affiliateText}
           </a>
         </div>
